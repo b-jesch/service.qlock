@@ -1,3 +1,6 @@
+0.0.1+matrix
+- Initial release for Matrix
+
 0.5.3
 - Eden release
 
