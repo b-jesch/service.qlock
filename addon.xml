@@ -3,14 +3,16 @@
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
-  <extension point="xbmc.service"
-             library="default.py" start="login">
+  <extension point="xbmc.service" library="default.py" start="login">
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Qlock Service</summary>
-    <description lang="en">Script to display current time in words, needs skin support. Qlock screensaver support this service as a screen saver</description>
+    <description lang="en">Script to display current time in words, needs skin support. Qlock screensaver supports this service as a screen saver. Maybe other skins has implemented the service too. See changelog.txt for details.</description>
     <platform>all</platform>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
     <source>https://github.com/b-jesch/service.qlock</source>
+    <assets>
+      <icon>resources/icon.png</icon>
+    </assets>
   </extension>
 </addon>
