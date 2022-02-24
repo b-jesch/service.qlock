@@ -37,19 +37,15 @@ def drawQlock(backplate, xml, now, lang):
 
     to = 0
     try:
-        if now.minute > 19 and now.minute != 0:
+        if now.minute > 19:
             to = int(times.getAttribute("shiftOn20"))
-            if now.minute > 34 and now.minute != 0:
-                to += int(times.getAttribute("shiftOnHalfHour"))
-            if now.minute > 24 and now.minute != 0:
-                to += int(times.getAttribute("shiftOn25"))
+            if now.minute > 34: to += int(times.getAttribute("shiftOnHalfHour"))
+            if now.minute > 24: to += int(times.getAttribute("shiftOn25"))
     except (AttributeError, ValueError) as e:
         log(str(e))
 
-    if now.hour >= 12:
-        hour = "h%.2d" % (now.hour - 12 + to + int(times.getAttribute("shiftHour")))
-    else:
-        hour = "h%.2d" % (now.hour + to + int(times.getAttribute("shiftHour")))
+    if now.hour >= 12: hour = "h%.2d" % (now.hour - 12 + to + int(times.getAttribute("shiftHour")))
+    else: hour = "h%.2d" % (now.hour + to + int(times.getAttribute("shiftHour")))
 
     if hour == "h00": hour = "h12"
 
