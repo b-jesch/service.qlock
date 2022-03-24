@@ -42,7 +42,7 @@ def drawQlock(backplate, xml, now, lang):
             if now.minute > 34: to += int(times.getAttribute("shiftOnHalfHour"))
             if now.minute > 24: to += int(times.getAttribute("shiftOn25"))
     except (AttributeError, ValueError) as e:
-        log(str(e))
+        log(str(e), level=xbmc.LOGERROR)
 
     if now.hour >= 12: hour = "h%.2d" % (now.hour - 12 + to + int(times.getAttribute("shiftHour")))
     else: hour = "h%.2d" % (now.hour + to + int(times.getAttribute("shiftHour")))
@@ -59,8 +59,8 @@ def drawQlock(backplate, xml, now, lang):
         WINDOW.setProperty("Qlock.%s.Highlight" % letter.replace(" ", ""), backplate[int(letter) - 1])
 
 
-def log(msg):
-    xbmc.log("[%s]: %s" % (__scriptname__, msg,), level=xbmc.LOGDEBUG)
+def log(msg, level=xbmc.LOGDEBUG):
+    xbmc.log("[%s]: %s" % (__scriptname__, msg,), level=level)
 
 
 while not Mon.abortRequested():
@@ -68,6 +68,9 @@ while not Mon.abortRequested():
     background, dom, lang = getLanguage()
     drawQlock(background, dom, datetime.now(), lang)
     cron_timetuple += timedelta(minutes=1)
-    Mon.waitForAbort((cron_timetuple - datetime.now()).seconds + 1)
+    if 1 < (cron_timetuple - datetime.now()).seconds + 1 < 59:
+        Mon.waitForAbort((cron_timetuple - datetime.now()).seconds + 1)
+    else:
+        Mon.waitForAbort(30)
 
 log('QLock finished')
