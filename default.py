@@ -68,7 +68,7 @@ while not Mon.abortRequested():
     background, dom, lang = getLanguage()
     drawQlock(background, dom, datetime.now(), lang)
     cron_timetuple += timedelta(minutes=1)
-    if 1 < (cron_timetuple - datetime.now()).seconds + 1 < 59:
+    if 1 <= (cron_timetuple - datetime.now()).seconds + 1 <= 60:
         Mon.waitForAbort((cron_timetuple - datetime.now()).seconds + 1)
     else:
         Mon.waitForAbort(30)
